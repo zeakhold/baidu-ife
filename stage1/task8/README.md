@@ -1,9 +1,10 @@
 # IMAer团队
 
-### 百度前端技术学院-任务提交仓库-第一阶段
+### 百度前端技术学院-任务提交仓库
 
+### 第一阶段
 #### 任务八：响应式网格（栅格化）布局
-#####任务目的:使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。
+##### 任务目的:使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。
 
 * 任务地址：http://ife.baidu.com/task/detail?taskId=8
 * 代码地址：https://github.com/zeakhold/baidu-ife/tree/master/stage1/task8
