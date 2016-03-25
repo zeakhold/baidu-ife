@@ -13,8 +13,4 @@
 ![Logo](http://www.zeakhold.com/images/logo-egg.jpg)
 
 ##### “ 梦想就像一只蛋，从外而内打破是压力，从内而外打破，就是生命。”
-
-
-
-## 漫漫前端路，欢迎勾搭~
-![Logo](http://www.zeakhold.com/images/ima-vida-big.jpg)
+ <p>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stage-2 task-18</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="zeakhold,zeakhold@yeah.net">
+    <link rel="Shortcut Icon" href="http://www.zeakhold.com/img/favicon.ico" type="image/x-icon"/>
+    <style>
+        .textArea {
+            border: 1px solid #CCC;
+            color: #888;
+            height: 20px;
+            line-height: 15px;
+            margin-bottom: 16px;
+            margin-right: 15px;
+            margin-top: 2px;
+            outline: 0 none;
+            padding: 5px 0px 5px 5px;
+            border-radius: 4px;
+        }
+
+        .button {
+            background: #FFF;
+            border: 1px solid #CCC;
+            padding: 8px 18px 8px 18px;
+            color: #333;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Microsoft Yahei', Times, sans-serif;
+        }
+
+        .button:hover {
+            color: #333;
+            background-color: #d2e6ce;
+            border-color: #ADADAD;
+        }
+
+        .button:nth-child(3) {
+            margin-right: 10px;
+        }
+
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 7px;
+            line-height: 100px;
+            background-color: red;
+            margin: 5px;
+            text-align: center;
+            font-size: 30px;
+            color: white;
+            font-family: 'Microsoft Yahei', Times, sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="controller">
+    <form>
+        <input type="text" class="textArea" placeholder="请输入一个数字">
+        <input type="button" class="button" id="leftInButton" value="左侧入">
+        <input type="button" class="button" id="rightInButton" value="右侧入">
+        <input type="button" class="button" id="leftOutButton" value="左侧出">
+        <input type="button" class="button" id="rightOutButton" value="右侧出">
+    </form>
+</div>
+<div class="container"></div>
+
+<script>
+    // ***EventUtil***
+    // Author:Nicholas C.Zakas
+    // From the book named Professional JavaScript for Web Developers
+
+    var EventUtil = {
+
+        addHandler: function (element, type, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        },
+
+        getButton: function (event) {
+            if (document.implementation.hasFeature("MouseEvents", "2.0")) {
+                return event.button;
+            } else {
+                switch (event.button) {
+                    case 0:
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                        return 0;
+                    case 2:
+                    case 6:
+                        return 2;
+                    case 4:
+                        return 1;
+                }
+            }
+        },
+
+        getCharCode: function (event) {
+            if (typeof event.charCode == "number") {
+                return event.charCode;
+            } else {
+                return event.keyCode;
+            }
+        },
+
+        getClipboardText: function (event) {
+            var clipboardData = (event.clipboardData || window.clipboardData);
+            return clipboardData.getData("text");
+        },
+
+        getEvent: function (event) {
+            return event ? event : window.event;
+        },
+
+        getRelatedTarget: function (event) {
+            if (event.relatedTarget) {
+                return event.relatedTarget;
+            } else if (event.toElement) {
+                return event.toElement;
+            } else if (event.fromElement) {
+                return event.fromElement;
+            } else {
+                return null;
+            }
+
+        },
+
+        getTarget: function (event) {
+            return event.target || event.srcElement;
+        },
+
+        getWheelDelta: function (event) {
+            if (event.wheelDelta) {
+                return (client.engine.opera && client.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta);
+            } else {
+                return -event.detail * 40;
+            }
+        },
+
+        preventDefault: function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
+        },
+
+        removeHandler: function (element, type, handler) {
+            if (element.removeEventListener) {
+                element.removeEventListener(type, handler, false);
+            } else if (element.detachEvent) {
+                element.detachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = null;
+            }
+        },
+
+        setClipboardText: function (event, value) {
+            if (event.clipboardData) {
+                event.clipboardData.setData("text/plain", value);
+            } else if (window.clipboardData) {
+                window.clipboardData.setData("text", value);
+            }
+        },
+
+        stopPropagation: function (event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+        }
+
+    };
+</script>
+<script>
+    window.onload = function () {
+
+        var container = document.getElementsByClassName("container")[0];
+        var form = document.getElementsByTagName('form')[0];
+
+        initBox();
+
+        EventUtil.addHandler(form, "click", function (event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            switch (target.id) {
+                case "leftInButton":
+                    lefIn();
+                    break;
+                case "rightInButton":
+                    rightIn();
+                    break;
+                case "leftOutButton":
+                    leftOut();
+                    break;
+                case "rightOutButton":
+                    rightOut();
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        EventUtil.addHandler(container, "click", function (event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            var delText = target.innerText;
+            container.removeChild(target);
+            alert("删除的元素是: " + delText);
+        });
+
+        function initBox() {
+            for (var i = 0; i < 6; i++) {
+                var text = "" + parseInt(Math.random() * 100);
+                var box = document.createElement("div");
+                box.className = "box";
+
+                var textNode = document.createTextNode(text);
+                box.appendChild(textNode);
+
+                container.appendChild(box);
+            }
+        }
+
+        function lefIn() {
+
+            var newBox = document.createElement("div");
+            newBox.className = "box";
+
+            var text = document.getElementsByClassName("textArea")[0].value;
+            var textNode = document.createTextNode(text);
+            newBox.appendChild(textNode);
+
+            var node = document.getElementsByClassName("box")[0];
+            container.insertBefore(newBox, node);
+        }
+
+        function rightIn() {
+            var newBox = document.createElement("div");
+            newBox.className = "box";
+
+            var text = document.getElementsByClassName("textArea")[0].value;
+            var textNode = document.createTextNode(text);
+            newBox.appendChild(textNode);
+
+            container.appendChild(newBox);
+        }
+
+        function leftOut() {
+            if (container.childNodes.length - 1) {
+                var delBox = document.getElementsByClassName("box")[0];
+                var delText = delBox.innerText;
+                container.removeChild(delBox);
+                alert("删除的元素是: " + delText);
+            } else {
+                alert("已经没有元素可供删除！");
+            }
+
+        }
+
+        function rightOut() {
+            if (container.childNodes.length - 1) {
+                var delBox = container.lastChild;
+                var delText = delBox.innerText;
+                container.removeChild(delBox);
+                alert("删除的元素是: " + delText);
+            } else {
+                alert("已经没有元素可供删除！");
+            }
+
+        }
+
+    }
+</script>
+</body>
+</html>
