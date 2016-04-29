@@ -228,7 +228,6 @@
 
                 var textNode = document.createTextNode(text);
                 box.appendChild(textNode);
-
                 container.appendChild(box);
             }
         }
@@ -239,11 +238,19 @@
             newBox.className = "box";
 
             var text = document.getElementsByClassName("textArea")[0].value;
-            var textNode = document.createTextNode(text);
-            newBox.appendChild(textNode);
+            if (text != null && text != "") {
+                if (isNaN(text)) {
+                    alert("请输入一个数字！");
+                } else {
+                    var textNode = document.createTextNode(text);
+                    newBox.appendChild(textNode);
+                    var node = document.getElementsByClassName("box")[0];
+                    container.insertBefore(newBox, node);
+                }
+            } else {
+                alert("请输入一个数字！");
+            }
 
-            var node = document.getElementsByClassName("box")[0];
-            container.insertBefore(newBox, node);
         }
 
         function rightIn() {
@@ -251,10 +258,17 @@
             newBox.className = "box";
 
             var text = document.getElementsByClassName("textArea")[0].value;
-            var textNode = document.createTextNode(text);
-            newBox.appendChild(textNode);
-
-            container.appendChild(newBox);
+            if (text != null && text != "") {
+                if (isNaN(text)) {
+                    alert("请输入一个数字！");
+                } else {
+                    var textNode = document.createTextNode(text);
+                    newBox.appendChild(textNode);
+                    container.appendChild(newBox);
+                }
+            } else {
+                alert("请输入一个数字！");
+            }
         }
 
         function leftOut() {
@@ -266,7 +280,6 @@
             } else {
                 alert("已经没有元素可供删除！");
             }
-
         }
 
         function rightOut() {
@@ -278,9 +291,7 @@
             } else {
                 alert("已经没有元素可供删除！");
             }
-
         }
-
     }
 </script>
 </body>
