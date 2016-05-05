@@ -39,11 +39,11 @@
 }
 
 .controller .button:nth-child(3) {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
-.controller .button:nth-child(5) {
-    margin-right: 10px;
+.controller #bubbleSort {
+    margin-right: 20px;
 }
 
 .container {

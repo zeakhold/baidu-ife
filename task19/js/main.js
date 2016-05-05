@@ -31,17 +31,8 @@ EventUtil.addHandler(controller, "click", function (event) {
         case "bubbleSort":
             bubbleSort(queue);
             break;
-        case "insertionSort":
-            insertionSort(queue);
-            break;
-        case "selectionSort":
-            selectionSort(queue);
-            break;
         case "quickSort":
-            quickSort(queue);
-            break;
-        case "shellSort":
-            shellSort(queue,p,r);
+            quickSort(queue, 0, queue.length - 1);
             break;
         default:
             break;
@@ -114,4 +105,77 @@ function getInputText() {
         return false;
     }
 }
+
+//冒泡排序
+function bubbleSort(array) {
+
+    //1、一般写法
+    //var len = array.length, temp;
+    //for (var i = 0; i < len; i++) {
+    //    for (var j = i + 1; j <= len; j++) {
+    //        if (array[i] > array[j]) {
+    //            temp = array[j];
+    //            array[j] = array[i];
+    //            array[i] = temp;
+    //        }
+    //    }
+    //}
+
+    //2、适配本需求的写法
+    if (Object.prototype.toString.call(array).slice(8, -1) === 'Array') {
+        var len = array.length, temp, i = 0;
+        var runSorting = setInterval(function () {
+            if (i >= len) {
+                clearInterval(runSorting);
+                return;
+            }
+            for (var j = i + 1; j < len; j++) {
+                if (array[j] < array[i]) {
+                    temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+
+            draw();
+            i++;
+        }, speed);
+
+        return array;
+    } else {
+        return '数组出现错误！';
+    }
+
+}
+
+
+//快速排序
+function quickSort(array, left, right) {
+
+    //1、一般写法
+    if (left < right) {
+        var x = array[right], i = left - 1, temp;
+        //for循环使左半数组所有元素小于右半数组
+        for (var j = left; j <= right; j++) {
+            if (array[j] <= x) {
+                i++;
+                temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        quickSort(array, left, i - 1);      //左半数组继续递归调用，继续排序
+        quickSort(array, i + 1, right);     //右半数组继续递归调用，继续排序
+    }
+    draw();
+
+}
+
+
+
+
+
+
+
+
 
