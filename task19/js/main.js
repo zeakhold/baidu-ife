@@ -1,9 +1,9 @@
-var queue = [];
-var speed = 100;
-var container = $('.container');
-var controller = $("form");
-var elementAmount = 0;
-var initElementAmount = 50;
+var queue = [],
+    speed = 100,
+    container = $('.container'),
+    controller = $("form"),
+    elementAmount = 0,
+    initElementAmount = 50;
 
 /* 简化选择器 */
 function $(elem) {
