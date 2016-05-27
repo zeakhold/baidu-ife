@@ -1,0 +1,45 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    display: flex;
+    margin: 55px 0;
+    justify-content: center;
+}
+
+.controller {
+    display: flex;
+    justify-content: center;
+}
+
+.node {
+    display: flex;
+    margin: 10px 5px;
+    padding: 20px 30px;
+    border: 2px solid gray;
+    background-color: white;
+}
+
+.node-active {
+    background: lightskyblue;
+}
+
+.button {
+    background: #FFF;
+    border: 1px solid #CCC;
+    padding: 6px 16px 6px 16px;
+    color: #333;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: 'Microsoft Yahei', Times, sans-serif;
+}
+
+.button:hover {
+    color: #333;
+    background-color: lightcyan;
+    border-color: #ADADAD;
+}
+

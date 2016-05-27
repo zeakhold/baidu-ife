@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stage-2 task-22</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="author" content="zeakhold,zeakhold@yeah.net">
+    <link rel="Shortcut Icon" href="http://data.zeakhold.com/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div class="container">
+    <div class="node root-node">A
+        <div class="node">B
+            <div class="node">D
+                <div class="node">H</div>
+                <div class="node">I</div>
+            </div>
+            <div class="node">E
+                <div class="node">J</div>
+                <div class="node">K</div>
+            </div>
+        </div>
+        <div class="node">C
+            <div class="node">F
+                <div class="node">L</div>
+                <div class="node">M</div>
+            </div>
+            <div class="node">G
+                <div class="node">N</div>
+                <div class="node">O</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="controller">
+    <form>
+        <input type="button" class="button" id="preOrder" value="先序遍历">
+        <input type="button" class="button" id="inOrder" value="中序遍历">
+        <input type="button" class="button" id="postOrder" value="后序遍历">
+    </form>
+</div>
+
+<script src="eventutil.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

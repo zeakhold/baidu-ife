@@ -1,0 +1,60 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    display: flex;
+    margin: 55px 0;
+    justify-content: center;
+}
+
+.controller {
+    display: flex;
+    justify-content: center;
+}
+
+.node {
+    display: flex;
+    margin: 5px 2px;
+    padding: 14px 17px;
+    border: 2px solid gray;
+    background-color: white;
+}
+
+.node-active {
+    background: lightskyblue;
+}
+
+.node-matching {
+    background: red;
+}
+
+.search {
+    margin-right: 30px;
+    padding: 6px 16px 6px 16px;
+    border: 1px solid #CCC;
+    background: #FFF;
+    color: #333;
+    font-size: 18px;
+    border-radius: 4px;
+    font-family: 'Microsoft Yahei', Times, sans-serif;
+}
+
+.button {
+    background: #FFF;
+    border: 1px solid #CCC;
+    padding: 6px 16px 6px 16px;
+    color: #333;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: 'Microsoft Yahei', Times, sans-serif;
+}
+
+.button:hover {
+    color: #333;
+    background-color: lightcyan;
+    border-color: #ADADAD;
+}
+
