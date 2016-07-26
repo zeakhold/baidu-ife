@@ -1,7 +1,8 @@
-var queue = [],
+ var array = [],
     speed = 500,
     container = $('.container'),
     controller = $("form"),
+    input = $('.textArea'),
     elementAmount = 0,
     initElementAmount = 30;
 
@@ -29,20 +30,23 @@ EventUtil.addHandler(controller, "click", function (event) {
             rightOut();
             break;
         case "bubbleSort":
-            bubbleSort(queue);
+            bubbleSort(array);
             break;
         case "selectionSort":
-            selectionSort(queue);
+            selectionSort(array);
             break;
         case "quickSort":
-            quickSort(queue, 0, queue.length - 1);
+            quickSort(array, 0, array.length - 1);
             break;
         case "insertionSort":
-            insertionSort(queue);
+            insertionSort(array);
             break;
         case "mergeSort":
-            queue = mergeSort(queue);
+            array = mergeSort(array);
             draw();
+            break;
+        case "randomGenerate":
+            init();
             break;
         default:
             break;
@@ -50,9 +54,9 @@ EventUtil.addHandler(controller, "click", function (event) {
 });
 
 function init() {
-    queue = [];
+    array = [];
     for (var i = 0; i < initElementAmount; i++) {
-        queue.push(Math.floor(10 + Math.random() * 90));
+        array.push(Math.floor(10 + Math.random() * 90));
     }
     elementAmount = initElementAmount;
     draw();
@@ -60,7 +64,7 @@ function init() {
 
 function draw(elemActive) {
     $('.container').innerHTML =
-        queue.map(function (num, index) {
+        array.map(function (num, index) {
             if (index == elemActive) {
                 return "<div class='elem elem-active' style='height:" + 3 * num + "px'>" + num + "</div>";
             } else {
@@ -70,22 +74,22 @@ function draw(elemActive) {
 }
 
 function lefIn() {
-    if (getInputText()) {
-        queue.unshift(getInputText());
+    if (getInputText(input)) {
+        array.unshift(getInputText(input));
         draw();
     }
 }
 
 function rightIn() {
-    if (getInputText()) {
-        queue.push(getInputText());
+    if (getInputText(input)) {
+        array.push(getInputText(input));
         draw();
     }
 }
 
 function leftOut() {
     if (container.childNodes.length) {
-        alert("你删除的元素是：" + queue.shift());
+        alert("你删除的元素是：" + array.shift());
     } else {
         alert("已经没有元素可供删除！");
     }
@@ -94,26 +98,25 @@ function leftOut() {
 
 function rightOut() {
     if (container.childNodes.length) {
-        alert("你删除的元素是：" + queue.pop());
+        alert("你删除的元素是：" + array.pop());
     } else {
         alert("已经没有元素可供删除！");
     }
     draw();
 }
 
-function getInputText() {
-    var text = document.getElementsByClassName("textArea")[0].value;
-    if (text != null && text != "") {
-        if (isNaN(text) || text < 10 || text > 100) {
+function getInputText(input) {
+    var result = parseInt(input.value);
+    if (result != null && result != "") {
+        if (isNaN(result) || result < 10 || result > 100) {
             alert("请输入在10-100之间的数字！");
         } else {
             if (elementAmount > 59) {
-                alert("数量限制，添加失败。\r\r 您试图添加的数字是: " + text);
+                alert("数量限制，添加失败。\r\r 您试图添加的数字是: " + result);
             } else {
-                return text;
+                return result;
             }
         }
-
     } else {
         alert("请输入一个数字！");
         return false;
@@ -264,21 +267,28 @@ function quickSort(array, left, right) {
 }
 
 
+
 // 插入排序(直接插入排序)
 function insertionSort(array) {
 
+    /*
     //1、一般写法
-    //var len = array.length;
-    //for (var i = 1; i < len; i++) {
-    //    var key = array[i];
-    //    var j = i - 1;
-    //    while (j >= 0 && array[j] > key) {
-    //        array[j + 1] = array[j];
-    //        j--;
-    //    }
-    //    array[j + 1] = key;
-    //}
-    //draw();
+    var len = array.length;
+    for (var i = 1; i < len; i++) {
+        var temp = array[i];
+        var j = i - 1;
+        while (j >= 0 && array[j] > temp) {
+            array[j + 1] = array[j];
+            j--;
+        }
+        array[j + 1] = temp;
+    }
+
+    draw();
+*/
+
+
+    
 
     //2、适配本需求的写法
     if (Object.prototype.toString.call(array).slice(8, -1) === 'Array') {
@@ -289,21 +299,27 @@ function insertionSort(array) {
                 clearInterval(timer);
                 return;
             }
-            var key = array[i];
+            
+            var temp = array[i];
             draw(i);
             var j = i - 1;
-            while (j >= 0 && array[j] > key) {
+            while (j >= 0 && array[j] > temp) {
                 array[j + 1] = array[j];
                 j--;
             }
-            array[j + 1] = key;
+            array[j + 1] = temp;
             i++;
         }, speed);
     } else {
         return 'array is not an Array!';
     }
 
+    
+
+
 }
+
+
 
 //归并排序
 function mergeSort(array)
@@ -334,8 +350,6 @@ function merge(left, right)
     }
     return result.concat(left).concat(right);
 }
-
-
 
 
 

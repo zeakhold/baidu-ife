@@ -3,6 +3,6 @@
 * 任务根地址：http://ife.baidu.com/task/all
 * 代码根地址：https://github.com/zeakhold/baidu-ife
 * Demo根地址：http://demo.zeakhold.com/baidu-ife
-* 联系邮箱：zeakhold@yeah.net
+* 联系邮箱：hi@zeakhold.com
 
  <p>
